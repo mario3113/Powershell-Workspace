@@ -1,0 +1,26 @@
+Private Sub btnSearch_Click()
+n = Range("B1000").End(xlUp).Row
+row_number = 4
+
+For row_number = 4 To n
+    item_in_review = Sheets("MASTERLIST").Range("B" & row_number)
+    lastname_in_review = Sheets("MASTERLIST").Range("C" & row_number)
+    
+    'push information from data table to userform
+    If item_in_review = tbEmployeeNum.Text Or lastname_in_review = tbLastName.Text And item_in_review <> "" Then
+        tbEmployeeNum.Text = item_in_review
+        tbLastName.Text = lastname_in_review
+        tbFirstName.Text = Sheets("MASTERLIST").Range("D" & row_number)
+        cbPayRate.Value = Sheets("MASTERLIST").Range("E" & row_number)
+        cbStatus.Value = Sheets("MASTERLIST").Range("F" & row_number)
+
+        'notify user of successful search
+        MsgBox "Employee record found!"
+        
+        Exit Sub
+    End If
+Next row_number
+
+'notify user of unsuccessful search
+MsgBox "Employee record cannot be found! Please try again."
+end sub
